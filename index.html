@@ -123,18 +123,33 @@
     }
 
     function showFullInfo() {
-      const resultCard = document.getElementById('result-card');
-      const result = document.getElementById('result');
-      const extraInfo = document.getElementById('extra-info');
-      const registerBtn = document.getElementById('registerBtn');
-
-      document.getElementById('chair_id_display').textContent = currentEmp.chair_id || '-';
-      resultCard.style.backgroundColor = '#' + (currentEmp.color || '6c757d');
-
-      registerBtn.classList.add('d-none');
-      extraInfo.classList.remove('d-none');
-      result.classList.remove('d-none');
+    const resultCard = document.getElementById('result-card');
+    const result = document.getElementById('result');
+    const extraInfo = document.getElementById('extra-info');
+    const registerBtn = document.getElementById('registerBtn');
+  
+    document.getElementById('chair_id_display').textContent = currentEmp.chair_id || '-';
+  
+    const bgColor = currentEmp.color || '6c757d';
+    resultCard.style.backgroundColor = '#' + bgColor;
+  
+    // ถ้าสีพื้นหลังเป็นดำ ให้เปลี่ยนตัวหนังสือเป็นสีเหลือง
+    if (bgColor.toLowerCase() === '000000') {
+      resultCard.style.color = 'yellow';
+  
+      // เปลี่ยนสีข้อความภายในให้เหลืองด้วย
+      const textElements = resultCard.querySelectorAll('*');
+      textElements.forEach(el => el.style.color = 'yellow');
+    } else {
+      resultCard.style.color = ''; // กลับไปใช้ค่า default
+      const textElements = resultCard.querySelectorAll('*');
+      textElements.forEach(el => el.style.color = '');
     }
+  
+    registerBtn.classList.add('d-none');
+    extraInfo.classList.remove('d-none');
+    result.classList.remove('d-none');
+  }
   </script>
 </body>
 </html>
