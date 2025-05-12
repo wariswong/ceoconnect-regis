@@ -39,6 +39,11 @@
       <input type="text" id="empIdInput" class="form-control" placeholder="กรอกรหัสพนักงาน" aria-label="emp_id">
       <button class="btn btn-primary" onclick="searchEmployee()">ค้นหา</button>
     </div>
+    <div id="loadingSpinner" class="text-center d-none mb-3">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">กำลังโหลด...</span>
+      </div>
+    </div>
 
     <div id="result" class="d-none">
       <div id="result-card" class="card text-dark shadow-sm">
@@ -73,9 +78,11 @@
       const result = document.getElementById('result');
       const extraInfo = document.getElementById('extra-info');
       const registerBtn = document.getElementById('registerBtn');
+      const loadingSpinner = document.getElementById('loadingSpinner');
 
       if (!empId) return;
 
+      loadingSpinner.classList.remove('d-none');
       result.classList.add('d-none');
       notFound.classList.add('d-none');
       extraInfo.classList.add('d-none');
@@ -86,6 +93,9 @@
         .select('emp_fullname, emp_position, emp_office, chair_id, color, regis_status')
         .eq('emp_id', empId)
         .single();
+
+      // ซ่อนโหลด
+      loadingSpinner.classList.add('d-none');
 
       if (error || !data) {
         notFound.classList.remove('d-none');
